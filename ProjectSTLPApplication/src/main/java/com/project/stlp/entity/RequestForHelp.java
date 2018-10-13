@@ -308,7 +308,7 @@ public class RequestForHelp {
 		this.morerequestSList = morerequestSList;
 	}
 
-	@OneToMany(mappedBy = "requestforhelp",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "requestforhelp")
 	@JsonIgnore
 	private List<Assign> assigntList;
 

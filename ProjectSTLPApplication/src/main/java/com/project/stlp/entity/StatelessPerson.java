@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -242,7 +243,7 @@ public class StatelessPerson extends Person {
 		this.modecomethai = modecomethai;
 	}
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
 	@JoinColumn(name = "idcardno", nullable = false)
 	private IDCardType idcardtype;
 
@@ -254,7 +255,7 @@ public class StatelessPerson extends Person {
 		this.idcardtype = idcardtype;
 	}
 
-	@OneToMany(mappedBy = "stateleeeperson")
+	@OneToMany(mappedBy = "stateleeeperson",fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Address> addressList;
 
