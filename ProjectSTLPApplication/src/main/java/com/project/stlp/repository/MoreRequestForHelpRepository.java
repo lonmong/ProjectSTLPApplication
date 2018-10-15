@@ -14,7 +14,10 @@ import com.project.stlp.entity.MoreRequest;
 public interface MoreRequestForHelpRepository extends CrudRepository<MoreRequest, Long> {
 	
 	@Query("Select m from MoreRequest m where m.requestforhelp.requestid = ?1") // select
-	List<MoreRequest> getMoreRequestByRequestId(int username);
+	List<MoreRequest> getMoreRequestByRequestId(int requestid);
+	
+	@Query("Select m from MoreRequest m where m.requestforhelp.requestid = ?1 and statusmrequest = 1") // select
+	List<MoreRequest> listMoreRequestByIDRequest(int requestid);
 	
 	@Query("Select m from MoreRequest m where m.morerequestid = ?1") // select
 	MoreRequest getMoreRequestById(int morerequestid);

@@ -17,13 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.stlp.entity.Address;
 import com.project.stlp.entity.Assign;
 import com.project.stlp.entity.Education;
+import com.project.stlp.entity.MoreRequest;
 import com.project.stlp.entity.Parent;
+import com.project.stlp.entity.RequestForHelp;
 import com.project.stlp.entity.Staff;
 import com.project.stlp.entity.StatelessPerson;
 import com.project.stlp.entity.Witness;
 import com.project.stlp.repository.AddressRepository;
 import com.project.stlp.repository.AssignRepository;
 import com.project.stlp.repository.EducationRepository;
+import com.project.stlp.repository.MoreRequestForHelpRepository;
 import com.project.stlp.repository.ParentRepository;
 import com.project.stlp.repository.WitnessRepository;
 import com.project.stlp.util.ResponseObj;
@@ -47,6 +50,9 @@ public class GetListController {
 	
 	@Autowired
 	AssignRepository mAssignRepository;
+	
+	@Autowired
+	MoreRequestForHelpRepository moreRequestRepository;
 	
 	
 	@PostMapping(path = "/education")
@@ -106,6 +112,20 @@ public class GetListController {
 			return new ResponseObj(500, "ไม่พบรายการคำร้อง?");
 
 		return new ResponseObj(200, queryListassign);
+	}
+	@PostMapping(path = "/listmorerequest")
+	public @ResponseBody ResponseObj listMoreREquest(@RequestBody Map<String, Object> map)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+
+		RequestForHelp request = new RequestForHelp();
+		request.setRequestid((int) map.get("requestid"));
+
+		List<MoreRequest> queryListmorerequest = moreRequestRepository.listMoreRequestByIDRequest(request.getRequestid());
+
+		if (queryListmorerequest == null)
+			return new ResponseObj(500, "ยังไม่มีคำร้องเพิ่มเติม?");
+
+		return new ResponseObj(200, queryListmorerequest);
 	}
 
 }
