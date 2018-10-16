@@ -1,6 +1,8 @@
 package com.project.stlp.entity;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -35,41 +37,46 @@ public class IDCardType {
 	}
 
 	public String getIdcardcall() {
+		
 		return idcardcall;
 	}
 
 	public void setIdcardcall(String idcardcall) {
 
-		this.idcardcall = idcardcall.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
+		this.idcardcall = idcardcall.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll(System.lineSeparator(),"%0A").replaceAll("\\)","%29").replaceAll("\\(","%28");
 	}
 
 	public String getIdcardmean() {
+		
 		return idcardmean;
 	}
 
 	public void setIdcardmean(String idcardmean) {
 
-		this.idcardmean = idcardmean.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
+		this.idcardmean = idcardmean.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll(System.lineSeparator(),"%0A").replaceAll("\\)","%29").replaceAll("\\(","%28");
 
 	}
 
 	public String getIdcardjob() {
+		
 		return idcardjob;
 	}
 
 	public void setIdcardjob(String idcardjob) {
 
-		this.idcardjob = idcardjob.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
+		this.idcardjob = idcardjob.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll(System.lineSeparator(),"%0A").replaceAll("\\)","%29").replaceAll("\\(","%28");
 
 	}
 
 	public String getBenefitsfromgovern() {
+		
 		return benefitsfromgovern;
 	}
 
 	public void setBenefitsfromgovern(String benefitsfromgovern) {
+		
 
-		this.benefitsfromgovern = benefitsfromgovern.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
+		this.benefitsfromgovern = benefitsfromgovern.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll(System.lineSeparator(),"%0A").replaceAll("\\)","%29").replaceAll("\\(","%28");
 
 	}
 

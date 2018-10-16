@@ -82,9 +82,15 @@
 								value="${fn:replace(idcardcall1, '%2C', ',')}" />
 							<c:set var="idcardcall3"
 								value="${fn:replace(idcardcall2, '+', ' ')}" />
+							<c:set var="idcardcall4"
+								value="${fn:replace(idcardcall3, '%0A', System.lineSeparator())}" />
+							<c:set var="idcardcall5"
+								value="${fn:replace(idcardcall4, '%29','-')}" />
+							<c:set var="idcardcall6"
+								value="${fn:replace(idcardcall5, '%28','-')}" />
 							<td><b>คำเรียกประเภทบัตร</b></td>
 							<td><input type='text' name='idcardcall'
-								class='form-control' value="${idcardcall3}" required /></td>
+								class='form-control' value="${idcardcall6}" required /></td>
 						</tr>
 						<tr>
 							<c:set var="idcardmean1"
@@ -93,9 +99,15 @@
 								value="${fn:replace(idcardmean1, '%2C', ',')}" />
 							<c:set var="idcardmean3"
 								value="${fn:replace(idcardmean2, '+', ' ')}" />
+							<c:set var="idcardmean4"
+								value="${fn:replace(idcardmean3, '%0A', System.lineSeparator())}" />
+							<c:set var="idcardmean5"
+								value="${fn:replace(idcardmean4, '%29','-')}" />
+							<c:set var="idcardmean6"
+								value="${fn:replace(idcardmean5, '%28','-')}" />
 							<td><b>ความหมายประเภทบัตร</b></td>
 							<td><textarea type='text' name='idcardmean'
-									class='form-control' size="20" required>${idcardmean3}</textarea></td>
+									class='form-control' size="20" required>${idcardmean6}</textarea></td>
 
 						</tr>
 
@@ -106,9 +118,15 @@
 								value="${fn:replace(idcardjob1, '%2C', ',')}" />
 							<c:set var="idcardjob3"
 								value="${fn:replace(idcardjob2, '+', ' ')}" />
+							<c:set var="idcardjob4"
+								value="${fn:replace(idcardjob3, '%0A', System.lineSeparator())}" />
+							<c:set var="idcardjob5"
+								value="${fn:replace(idcardjob4, '%29','-')}" />
+							<c:set var="idcardjob6"
+								value="${fn:replace(idcardjob5, '%28','-')}" />
 							<td><b>งานที่สามารถทำได้</b></td>
 							<td><textarea type='text' name='idcardjob'
-									class='form-control' size="20" required>${idcardjob3}</textarea></td>
+									class='form-control' size="20" required>${idcardjob6}</textarea></td>
 
 						</tr>
 
@@ -119,9 +137,15 @@
 								value="${fn:replace(benefitsfromgovern1, '%2C', ',')}" />
 							<c:set var="benefitsfromgovern3"
 								value="${fn:replace(benefitsfromgovern2, '+', ' ')}" />
+							<c:set var="benefitsfromgovern4"
+								value="${fn:replace(benefitsfromgovern3, '%0A', System.lineSeparator())}" />
+							<c:set var="benefitsfromgovern5"
+								value="${fn:replace(benefitsfromgovern4, '%29','-')}" />
+							<c:set var="benefitsfromgovern6"
+								value="${fn:replace(benefitsfromgovern5, '%28','-')}" />
 							<td><b>สวัสดิการจากหน่วยงานภาครัฐ</b></td>
 							<td><textarea type='text' name=benefitsfromgovern
-									class='form-control' size="20" required>${benefitsfromgovern3}</textarea></td>
+									class='form-control' size="20" required>${benefitsfromgovern6}</textarea></td>
 
 						</tr>
 						<tr>

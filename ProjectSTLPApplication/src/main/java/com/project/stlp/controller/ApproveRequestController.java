@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.project.stlp.entity.Center;
 import com.project.stlp.entity.RequestForHelp;
 import com.project.stlp.entity.StatelessPerson;
 import com.project.stlp.repository.RequestForHelpRepository;
@@ -30,13 +28,11 @@ public class ApproveRequestController {
 	RequestForHelpRepository mRequestnRepository;
 	
 	@PostMapping(path = "/listrequestforhelp")
-	public @ResponseBody ResponseObj getListRequestForHelpByTelCenter(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListRequestForHelpByTelCenter(@RequestBody String telcenter)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 
-		Center center = new Center();
-		center.setTelcenter((String) map.get("telcenter"));
 
-		List<RequestForHelp> queryListrequest = mRequestnRepository.getRequestByTelCenter(center.getTelcenter());
+		List<RequestForHelp> queryListrequest = mRequestnRepository.getRequestByTelCenter(telcenter.replaceAll("\"",""));
 
 		if (queryListrequest == null)
 			return new ResponseObj(500, "ไม่พบรายการคำร้อง?");
@@ -45,20 +41,15 @@ public class ApproveRequestController {
 	}
 	
 	@PostMapping(path = "/getdetailsrequestbyusername")
-	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody String usernmame)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 		
-		Object objStattelessperson = map.get("statelessperon");
-		@SuppressWarnings("unchecked")
-		Map<String, Object> mapStatelessperson = (Map<String, Object>) objStattelessperson;
-		
-		StatelessPerson stateless = new StatelessPerson();
-		stateless.setUsername((String)mapStatelessperson.get("username"));
 
-		RequestForHelp queryrequestForhelp = mRequestnRepository.getDetailrequestByUsername(stateless.getUsername());
+		RequestForHelp queryrequestForhelp = mRequestnRepository.getDetailrequestByUsername(usernmame.replaceAll("\"",""));
 
 		return new ResponseObj(200, queryrequestForhelp);
 	}
+	
 	
 	@PostMapping(path = "/setapproverequeststatus")
 	public @ResponseBody ResponseObj requestNotapprove(@RequestBody Map<String, Object> map)

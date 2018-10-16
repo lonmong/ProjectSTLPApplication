@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.stlp.entity.Assign;
 import com.project.stlp.entity.RequestForHelp;
+import com.project.stlp.entity.StatelessPerson;
 import com.project.stlp.repository.AssignRepository;
+import com.project.stlp.repository.RequestForHelpRepository;
 import com.project.stlp.util.ResponseObj;
 
 
@@ -25,20 +28,28 @@ public class ViewSuggestionController {
 
 	@Autowired
 	AssignRepository mAssignRepository;
+	
+	@Autowired
+	RequestForHelpRepository mRequestnRepository;
+	
+	@PostMapping(path = "/detailrequestbyusername", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody String username)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+			
+		RequestForHelp request = mRequestnRepository.getDetailrequestByUsername(username.replaceAll("\"",""));
+		
+		if (request == null)
+			return new ResponseObj(500, "บัญชีนี้ยังไม่ได้เขียนคำร้อง?");
 
+		return new ResponseObj(200, request);
+	}
 
 	@PostMapping(path = "/viewsuggestionbyidrequest")
-	public @ResponseBody ResponseObj viewSuggestionByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj viewSuggestionByUsername(@RequestBody int idrequest)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 
-		Object objRequestForHelp = map.get("requestforhelp");
-		@SuppressWarnings("unchecked")
-		Map<String, Object> mapRequestForHelp = (Map<String, Object>) objRequestForHelp;
 
-		RequestForHelp request = new RequestForHelp();
-		request.setRequestid((int) mapRequestForHelp.get("requestid"));
-
-		List<Assign> viewsuggestion = mAssignRepository.getAssignByRequestIdAS3(request.getRequestid());
+		List<Assign> viewsuggestion = mAssignRepository.getAssignByRequestIdAS3(idrequest);
 
 		if (viewsuggestion == null) 
 			return new ResponseObj(500, "คำร้องอยู่ระหว่างการพิจารณา?");

@@ -43,13 +43,10 @@ public class SelectStaffForRequestController {
 
 	
 	@PostMapping(path = "/staffbytelcenter")
-	public @ResponseBody ResponseObj listStaffsByTelCenter(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj listStaffsByTelCenter(@RequestBody String telcenter)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 
-		Center center = new Center();
-		center.setTelcenter((String) map.get("telcenter"));
-
-		List<Staff> queryListstaff = mStaffRepository.getStaffByTelCenter(center.getTelcenter());
+		List<Staff> queryListstaff = mStaffRepository.getStaffByTelCenter(telcenter.replaceAll("\"",""));
 
 		if (queryListstaff == null)
 			return new ResponseObj(500, "ไม่พบรายชื่อเจ้าหน้าที่?");

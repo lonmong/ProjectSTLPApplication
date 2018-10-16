@@ -255,7 +255,7 @@ public class StatelessPerson extends Person {
 		this.idcardtype = idcardtype;
 	}
 
-	@OneToMany(mappedBy = "stateleeeperson",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "stateleeeperson")
 	@JsonIgnore
 	private List<Address> addressList;
 

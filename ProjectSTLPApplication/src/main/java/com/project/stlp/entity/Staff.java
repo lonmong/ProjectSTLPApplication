@@ -29,7 +29,7 @@ public class Staff extends Person {
 	}
 
 	public void setPosition(String position) {
-		this.position = position;
+		this.position = position.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
 	}
 
 	public String getAddress() {
@@ -37,7 +37,7 @@ public class Staff extends Person {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)

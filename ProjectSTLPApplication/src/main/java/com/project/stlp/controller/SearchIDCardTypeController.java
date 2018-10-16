@@ -25,12 +25,10 @@ public class SearchIDCardTypeController {
 	IDCardTypeRepository mIdcardTypeRepository;
 	
 	@PostMapping(path = "/searchidcardtypebypattern")
-	public @ResponseBody ResponseObj searchIdcardByIdcardNo(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj searchIdcardByIdcardNo(@RequestBody String idcardno)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		IDCardType idcardtype = new IDCardType();
-		idcardtype.setIdcardno((String)map.get("idcardno"));
-		
-		IDCardType queryIdcardType = mIdcardTypeRepository.getIDCardTypeByIDCard_NO(idcardtype.getIdcardno());
+				
+		IDCardType queryIdcardType = mIdcardTypeRepository.getIDCardTypeByIDCard_NO(idcardno.replaceAll("\"",""));
 
 		if (queryIdcardType == null)
 			return new ResponseObj(500, "ไม่พบประเภทบัตรบุคคลไร้รัฐไร้สัญชาติ?");

@@ -75,18 +75,32 @@ public class MoreRequestController {
 		return morerequest;
 	}
 	
+	@PostMapping(path = "/detailsuggestionbyidassign")
+	public @ResponseBody ResponseObj detailSuggestionByIdassign(@RequestBody int assignid)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+
+		Assign queryAssign = mAssignRepository.getAssignByAssignid(assignid);
+
+		return new ResponseObj(200, queryAssign);
+	}
+	
+	@PostMapping(path = "/getdetailsrequestbyidrequest", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody int idrequest)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+			
+		RequestForHelp requestbyid = mRequestnRepository.getRequestByIdRequest(idrequest);
+		
+		if (requestbyid == null)
+			return new ResponseObj(500, "ไม่พบคำร้อง?");
+
+		return new ResponseObj(200, requestbyid);
+	}
+	
 	@PostMapping(path = "/listmorerequestbyidrequest")
-	public @ResponseBody ResponseObj getListMoreRequestByIdrequest(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListMoreRequestByIdrequest(@RequestBody int requestid)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 		
-		Object objRequest = map.get("requestforhelp");
-		@SuppressWarnings("unchecked")
-		Map<String, Object> mapRequest = (Map<String, Object>) objRequest;
-		
-		RequestForHelp request = new RequestForHelp();
-		request.setRequestid((int)mapRequest.get("requestid"));
-
-		List<MoreRequest> queryListMoreRequest = mMoreRequestRepository.getMoreRequestByRequestId(request.getRequestid());
+		List<MoreRequest> queryListMoreRequest = mMoreRequestRepository.getMoreRequestByRequestId(requestid);
 
 		return new ResponseObj(200, queryListMoreRequest);
 	}

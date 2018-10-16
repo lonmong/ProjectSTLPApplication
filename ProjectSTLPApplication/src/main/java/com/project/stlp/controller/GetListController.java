@@ -56,45 +56,37 @@ public class GetListController {
 	
 	
 	@PostMapping(path = "/education")
-	public @ResponseBody ResponseObj getListEducationtByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListEducationtByUsername(@RequestBody String username)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		StatelessPerson statelessperson = new StatelessPerson();
-		statelessperson.setUsername((String) map.get("username"));
 
-		List<Education> queryListeducation = mEducationRepository.getEducationByUsername(statelessperson.getUsername());
+		List<Education> queryListeducation = mEducationRepository.getEducationByUsername(username.replaceAll("\"",""));
 
 		return new ResponseObj(200, queryListeducation);
 	}
 
 	@PostMapping(path = "/witness")
-	public @ResponseBody ResponseObj getListWitnessByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListWitnessByUsername(@RequestBody String username)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		StatelessPerson statelessperson = new StatelessPerson();
-		statelessperson.setUsername((String) map.get("username"));
 
-		List<Witness> queryListwitness = mWitnessRepository.getWitnessByUsername(statelessperson.getUsername());
+		List<Witness> queryListwitness = mWitnessRepository.getWitnessByUsername(username.replaceAll("\"",""));
 
 		return new ResponseObj(200, queryListwitness);
 	}
 
 	@PostMapping(path = "/address")
-	public @ResponseBody ResponseObj getListAddressByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListAddressByUsername(@RequestBody String username)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		StatelessPerson statelessperson = new StatelessPerson();
-		statelessperson.setUsername((String) map.get("username"));
 
-		List<Address> queryListaddress = mAddressRepository.getAddressByUsername(statelessperson.getUsername());
+		List<Address> queryListaddress = mAddressRepository.getAddressByUsername(username.replaceAll("\"",""));
 
 		return new ResponseObj(200, queryListaddress);
 	}
 
 	@PostMapping(path = "/parent")
-	public @ResponseBody ResponseObj getListParentByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj getListParentByUsername(@RequestBody String username)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
-		StatelessPerson statelessperson = new StatelessPerson();
-		statelessperson.setUsername((String) map.get("username"));
 
-		List<Parent> queryListparent = mParentRepository.getParentByUsername(statelessperson.getUsername());
+		List<Parent> queryListparent = mParentRepository.getParentByUsername(username.replaceAll("\"",""));
 
 		return new ResponseObj(200, queryListparent);
 	}

@@ -3,6 +3,7 @@ package com.project.stlp.controller;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,14 @@ public class LoginMobileController {
 	private static String SALT = "123456";
 
 	@PostMapping(path = "/login")
-	public @ResponseBody ResponseObj verifyLogin(@RequestBody Map<String, String> map)
+	public @ResponseBody ResponseObj verifyLogin(@RequestBody List<String> map)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
+		String username = map.get(0);
+		String password = map.get(1);
+		
 		Login user = new Login();
-		user.setUsername(map.get("username"));
-		user.setPassword(PasswordUtil.getInstance().createPassword(map.get("password"), SALT));
+		user.setUsername(username);
+		user.setPassword(PasswordUtil.getInstance().createPassword(password, SALT));
 		Login queryUser = mAddLoginRepository.login(user.getUsername(), user.getPassword());
 
 		if (queryUser == null)

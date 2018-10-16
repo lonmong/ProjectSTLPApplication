@@ -34,13 +34,10 @@ public class GiveSuggestionController {
 
 	
 	@PostMapping(path = "/getdetailsrequestbyidrequest", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody Map<String, Object> map)
+	public @ResponseBody ResponseObj detailRequestByUsername(@RequestBody int idrequest)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
 			
-		RequestForHelp request = new RequestForHelp();
-		request.setRequestid((int)map.get("requestid"));
-		
-		RequestForHelp requestbyid = mRequestnRepository.getRequestByIdRequest(request.getRequestid());
+		RequestForHelp requestbyid = mRequestnRepository.getRequestByIdRequest(idrequest);
 		
 		if (requestbyid == null)
 			return new ResponseObj(500, "ไม่พบคำร้อง?");
