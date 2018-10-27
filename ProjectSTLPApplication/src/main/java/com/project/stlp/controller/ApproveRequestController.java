@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.project.stlp.entity.Address;
 import com.project.stlp.entity.RequestForHelp;
 import com.project.stlp.entity.StatelessPerson;
+import com.project.stlp.repository.AddressRepository;
 import com.project.stlp.repository.RequestForHelpRepository;
 import com.project.stlp.util.ResponseObj;
 
@@ -26,6 +29,9 @@ public class ApproveRequestController {
 	
 	@Autowired
 	RequestForHelpRepository mRequestnRepository;
+	
+	@Autowired
+	AddressRepository mAddressRepository;
 	
 	@PostMapping(path = "/listrequestforhelp")
 	public @ResponseBody ResponseObj getListRequestForHelpByTelCenter(@RequestBody String telcenter)
@@ -46,6 +52,10 @@ public class ApproveRequestController {
 		
 
 		RequestForHelp queryrequestForhelp = mRequestnRepository.getDetailrequestByUsername(usernmame.replaceAll("\"",""));
+		
+		List<Address> queryListaddress = mAddressRepository.getAddressByUsername(queryrequestForhelp.getStatelessperon().getUsername());
+		
+		queryrequestForhelp.getStatelessperon().setAddressList(queryListaddress);
 
 		return new ResponseObj(200, queryrequestForhelp);
 	}

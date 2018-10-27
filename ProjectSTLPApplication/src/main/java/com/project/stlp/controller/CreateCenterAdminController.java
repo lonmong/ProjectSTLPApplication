@@ -2,6 +2,8 @@ package com.project.stlp.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,19 +55,27 @@ public class CreateCenterAdminController {
 					"ศูนย์ให้ความช่วยเหลือฯนี้มีอยู่ในระบบแล้วหรือชื่อผู้ใช้งานนี้มีอยู่ในระบบแล้ว!!");
 			return model;
 		} else {
-			centerRepository.save(center);
+			
 			Staff staff = new Staff();
-			staff.setAddress(address.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A"));
+			staff.setAddress(address.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C"));
 			staff.setPosition(position);
 			staff.setStatusstaff(1);
-			staff.setNameperson(nameperson.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A"));
+			staff.setNameperson(nameperson.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C"));
 			staff.setEmailperson(center.getEmailcenter());
 			staff.setTelperson(center.getTelcenter());
 			staff.setUsername(username);
 			staff.setPassword(PasswordUtil.getInstance().createPassword(password, SALT));
 			staff.setType(3);
+			
+			List<Staff> staffs = new ArrayList<Staff>();
+			
 			staff.setCenter(center);
-			staffRepository.save(staff);
+			
+			staffs.add(staff);
+			
+			center.setStaffList(staffs);
+			centerRepository.save(center);
+
 			model.addObject("warning", "เพิ่มข้อมูลสำเร็จ");
 			return modelcomplete;
 		}

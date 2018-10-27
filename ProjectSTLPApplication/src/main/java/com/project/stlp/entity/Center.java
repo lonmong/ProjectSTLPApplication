@@ -2,6 +2,7 @@ package com.project.stlp.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -55,7 +56,7 @@ public class Center {
 		this.addresscenter = addresscenter.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
 	}
 
-	@OneToMany(mappedBy = "center")
+	@OneToMany(mappedBy = "center",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Staff> staffList;
 

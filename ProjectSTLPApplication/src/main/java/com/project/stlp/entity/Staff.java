@@ -2,6 +2,7 @@ package com.project.stlp.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +41,7 @@ public class Staff extends Person {
 		this.address = address.replaceAll(" ", "+").replaceAll("/", "%2F").replaceAll(",", "%2C").replaceAll("\n","%0A");
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,optional = false,cascade = CascadeType.ALL)
 	@JoinColumn(name = "telcenter", nullable = false)
 	private Center center;
 
